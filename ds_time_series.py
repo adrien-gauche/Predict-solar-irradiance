@@ -559,10 +559,15 @@ def plot_multistep(y, every=1, ax=None, palette_kwargs=None):
         fig, ax = plt.subplots()
     # Set the color cycle for the subplot
     ax.set_prop_cycle(plt.cycler("color", palette))
+    
+    freq = y.index.freq
+    if freq is None:
+        freq = pd.infer_freq(y.index)
+        
     # Loop through the rows of the DataFrame, with a step size of every
-    for date, preds in y[::every].iterrows():
+    for datetime, preds in y[::every].iterrows():
         # Set the index of the predictions to be a range of periods, starting from the date
-        preds.index = pd.period_range(start=date, periods=len(preds))
+        preds.index = pd.period_range(start=datetime, periods=len(preds), freq=freq)
         # Plot the predictions on the subplot
         preds.plot(ax=ax)
     # Return the subplot

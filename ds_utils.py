@@ -6,7 +6,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
-from sklearn.decomposition import PCA
 from scipy import stats
 
 # Outlier Detection and Removal
@@ -633,6 +632,7 @@ def kmeans_cluster_distance(X, n_clusters=10):
 #    PCA is sensitive to scale. It's good practice to standardize your data before applying PCA, unless you know you have good reason not to.
 #    Consider removing or constraining outliers, since they can have an undue influence on the results.
 
+from sklearn.decomposition import PCA
 
 def apply_pca(X, standardize=True):
     """
@@ -951,4 +951,5 @@ def explain_with_shap(X, y, model):
 
     # Return the SHAP values and a waterfall plot for the first instance
     shap.plots.waterfall(shap_values[0])
+    
     return shap_values
